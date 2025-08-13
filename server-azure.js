@@ -66,6 +66,18 @@ app.get('/api/debug/database', async (req, res) => {
     try {
         console.log('🔍 Running database diagnostics...');
         
+        // Ensure database is initialized
+        const initialized = await ensureDatabaseInitialized();
+        
+        if (!initialized) {
+            res.json({
+                error: 'Database not initialized',
+                initialized: false,
+                timestamp: new Date().toISOString()
+            });
+            return;
+        }
+        
         // Check applications
         const applications = await prisma.application.findMany();
         console.log('📋 Applications in database:', applications);
@@ -88,6 +100,7 @@ app.get('/api/debug/database', async (req, res) => {
         });
         
         res.json({
+            initialized: true,
             applications: applications,
             questionCounts: questionCounts,
             sampleQuestions: sampleQuestions.map(q => ({
@@ -101,7 +114,12 @@ app.get('/api/debug/database', async (req, res) => {
         
     } catch (error) {
         console.error('❌ Database diagnostic error:', error);
-        res.status(500).json({ error: 'Database diagnostic failed', details: error.message });
+        res.status(500).json({ 
+            error: 'Database diagnostic failed', 
+            details: error.message,
+            initialized: false,
+            timestamp: new Date().toISOString()
+        });
     }
 });
 
@@ -121,8 +139,19 @@ app.get('/api/applications', async (req, res) => {
     try {
         console.log('📋 Fetching applications from database...');
         
-        // Check if database is available
-        await prisma.$connect();
+        // Ensure database is initialized
+        const initialized = await ensureDatabaseInitialized();
+        if (!initialized) {
+            console.log('⚠️ Database not initialized, returning fallback applications');
+            const fallbackApps = [
+                { id: 1, name: 'RoadOps', description: 'RoadOps application quiz', question_count: 3, max_questions: 25 },
+                { id: 2, name: 'RoadSales', description: 'RoadSales application quiz', question_count: 3, max_questions: 25 },
+                { id: 3, name: 'UES', description: 'UES application quiz', question_count: 3, max_questions: 25 },
+                { id: 4, name: 'Digital', description: 'Digital application quiz', question_count: 3, max_questions: 25 }
+            ];
+            res.json(fallbackApps);
+            return;
+        }
         
         const applications = await prisma.application.findMany({
             select: {
@@ -151,10 +180,10 @@ app.get('/api/applications', async (req, res) => {
         
         // Return a fallback response with default applications
         const fallbackApps = [
-            { id: 1, name: 'RoadOps', description: 'RoadOps application quiz', question_count: 25, max_questions: 25 },
-            { id: 2, name: 'RoadSales', description: 'RoadSales application quiz', question_count: 25, max_questions: 25 },
-            { id: 3, name: 'UES', description: 'UES application quiz', question_count: 25, max_questions: 25 },
-            { id: 4, name: 'Digital', description: 'Digital application quiz', question_count: 25, max_questions: 25 }
+            { id: 1, name: 'RoadOps', description: 'RoadOps application quiz', question_count: 3, max_questions: 25 },
+            { id: 2, name: 'RoadSales', description: 'RoadSales application quiz', question_count: 3, max_questions: 25 },
+            { id: 3, name: 'UES', description: 'UES application quiz', question_count: 3, max_questions: 25 },
+            { id: 4, name: 'Digital', description: 'Digital application quiz', question_count: 3, max_questions: 25 }
         ];
         
         console.log('⚠️ Database error, returning fallback applications');
@@ -170,50 +199,49 @@ app.get('/api/questions/:applicationId', async (req, res) => {
         
         console.log(`📝 Fetching questions for application ${applicationId}, count: ${count || 'all'}`);
         
-        try {
-            // Try to get questions from database first
-            await prisma.$connect();
-            console.log('✅ Database connection successful for questions');
-            
-            let questions = await prisma.question.findMany({
-                where: { applicationId },
-                orderBy: { id: 'asc' }
-            });
-            
-            console.log(`📊 Found ${questions.length} questions in database for application ${applicationId}`);
-            
-            if (questions.length > 0) {
-                // If count is specified, shuffle and limit questions for quiz
-                if (count) {
-                    questions = questions
-                        .sort(() => 0.5 - Math.random())
-                        .slice(0, parseInt(count));
+        // Ensure database is initialized
+        const initialized = await ensureDatabaseInitialized();
+        
+        if (initialized) {
+            try {
+                let questions = await prisma.question.findMany({
+                    where: { applicationId },
+                    orderBy: { id: 'asc' }
+                });
+                
+                console.log(`📊 Found ${questions.length} questions in database for application ${applicationId}`);
+                
+                if (questions.length > 0) {
+                    // If count is specified, shuffle and limit questions for quiz
+                    if (count) {
+                        questions = questions
+                            .sort(() => 0.5 - Math.random())
+                            .slice(0, parseInt(count));
+                    }
+                    
+                    const formattedQuestions = questions.map((q, index) => ({
+                        id: index,
+                        question: q.question,
+                        options: {
+                            A: q.optionA,
+                            B: q.optionB,
+                            C: q.optionC,
+                            D: q.optionD
+                        },
+                        correct: q.correctAnswer
+                    }));
+                    
+                    console.log(`✅ Returning ${formattedQuestions.length} questions from database`);
+                    res.json(formattedQuestions);
+                    return;
                 }
-                
-                const formattedQuestions = questions.map((q, index) => ({
-                    id: index,
-                    question: q.question,
-                    options: {
-                        A: q.optionA,
-                        B: q.optionB,
-                        C: q.optionC,
-                        D: q.optionD
-                    },
-                    correct: q.correctAnswer
-                }));
-                
-                console.log(`✅ Returning ${formattedQuestions.length} questions from database`);
-                res.json(formattedQuestions);
-                return;
-            } else {
-                console.log(`⚠️ No questions found in database for application ${applicationId}, using fallback`);
+            } catch (dbError) {
+                console.log('⚠️ Database query error:', dbError.message);
             }
-            
-        } catch (dbError) {
-            console.log('⚠️ Database error, using fallback questions:', dbError.message);
         }
         
         // Use fallback questions if database fails or no questions found
+        console.log(`⚠️ Using fallback questions for application ${applicationId}`);
         const fallback = fallbackQuestions[applicationId] || fallbackQuestions[1];
         const requestedCount = count ? parseInt(count) : fallback.length;
         const selectedQuestions = fallback.slice(0, requestedCount);
@@ -414,15 +442,19 @@ app.get('*', (req, res) => {
 });
 
 // Database initialization
-async function initializeDatabase() {
+let databaseInitialized = false;
+
+async function ensureDatabaseInitialized() {
+    if (databaseInitialized) return true;
+    
     try {
-        console.log('🔧 Initializing database...');
+        console.log('🔧 Ensuring database is initialized...');
         
         // Test database connection
         await prisma.$connect();
         console.log('✅ Database connected successfully');
         
-        // Check if applications exist, if not create default ones
+        // Check if applications exist
         const appCount = await prisma.application.count();
         console.log(`📊 Found ${appCount} applications in database`);
         
@@ -446,13 +478,13 @@ async function initializeDatabase() {
             }
         }
         
+        databaseInitialized = true;
         console.log('✅ Database initialization complete');
+        return true;
+        
     } catch (error) {
         console.error('❌ Database initialization failed:', error);
-        console.log('⚠️ Application will continue running without database features');
-        
-        // Don't exit the process, let Azure handle the restart
-        // Just log the error and continue
+        return false;
     }
 }
 
@@ -472,8 +504,12 @@ const server = app.listen(PORT, async () => {
     console.log('✅ Server is ready! Initializing database...');
     console.log('==========================================');
     
-    // Initialize database after server starts
-    await initializeDatabase();
+    // Initialize database after server starts (non-blocking)
+    ensureDatabaseInitialized().then(() => {
+        console.log('🎉 Database initialization completed in background');
+    }).catch(error => {
+        console.log('⚠️ Database initialization failed, will retry on first request');
+    });
 });
 
 // Graceful shutdown

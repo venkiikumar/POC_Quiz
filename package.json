@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server-azure.js",
     "dev": "nodemon server-backup.js",
-    "postinstall": "npx prisma generate && npx prisma db push --accept-data-loss && node azure-db-setup.js",
+    "postinstall": "npx prisma generate && npx prisma db push --accept-data-loss --force-reset && node azure-db-setup.js",
     "client": "npx http-server . -p 3000 -o",
     "serve": "python -m http.server 3000",
     "install-deps": "npm install",

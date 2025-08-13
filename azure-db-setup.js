@@ -1,4 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
+const fs = require('fs');
+const csv = require('csv-parser');
+const path = require('path');
 
 const prisma = new PrismaClient();
 
@@ -41,7 +44,24 @@ async function setupAzureDatabase() {
         console.log(`📚 Found ${questionCount} questions in database`);
         
         if (questionCount === 0) {
-            console.log('⚠️ No questions found. You can upload questions via the admin panel.');
+            console.log('📝 Loading questions from CSV files...');
+            
+            // Load questions from CSV files
+            const csvFiles = [
+                { file: 'java_questions.csv', appName: 'RoadOps' },
+                { file: 'csharp_questions.csv', appName: 'RoadSales' },
+                { file: 'python_questions.csv', appName: 'UES' },
+                { file: 'typescript_questions.csv', appName: 'Digital' }
+            ];
+            
+            for (const { file, appName } of csvFiles) {
+                const filePath = path.join(__dirname, file);
+                if (fs.existsSync(filePath)) {
+                    await loadQuestionsFromCSV(filePath, appName);
+                } else {
+                    console.log(`⚠️ CSV file not found: ${file}`);
+                }
+            }
         }
         
         console.log('✅ Azure database setup complete');
@@ -53,6 +73,57 @@ async function setupAzureDatabase() {
         await prisma.$disconnect();
         process.exit(0);
     }
+}
+
+async function loadQuestionsFromCSV(csvFile, applicationName) {
+    return new Promise((resolve, reject) => {
+        console.log(`📚 Loading questions from ${csvFile} for ${applicationName}...`);
+        
+        prisma.application.findFirst({ where: { name: applicationName } })
+            .then(application => {
+                if (!application) {
+                    console.log(`❌ Application ${applicationName} not found`);
+                    resolve();
+                    return;
+                }
+                
+                const questions = [];
+                
+                fs.createReadStream(csvFile)
+                    .pipe(csv())
+                    .on('data', (data) => {
+                        questions.push({
+                            question: data.question,
+                            optionA: data.optionA,
+                            optionB: data.optionB,
+                            optionC: data.optionC,
+                            optionD: data.optionD,
+                            correctAnswer: data.correctAnswer,
+                            applicationId: application.id
+                        });
+                    })
+                    .on('end', async () => {
+                        try {
+                            await prisma.question.createMany({
+                                data: questions
+                            });
+                            console.log(`✅ Loaded ${questions.length} questions for ${applicationName}`);
+                            resolve();
+                        } catch (error) {
+                            console.error(`❌ Error loading questions for ${applicationName}:`, error);
+                            resolve(); // Continue even if this fails
+                        }
+                    })
+                    .on('error', (error) => {
+                        console.error(`❌ Error reading CSV ${csvFile}:`, error);
+                        resolve(); // Continue even if this fails
+                    });
+            })
+            .catch(error => {
+                console.error(`❌ Error finding application ${applicationName}:`, error);
+                resolve(); // Continue even if this fails
+            });
+    });
 }
 
 setupAzureDatabase();
