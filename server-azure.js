@@ -199,54 +199,58 @@ app.get('/api/questions/:applicationId', async (req, res) => {
         
         console.log(`📝 Fetching questions for application ${applicationId}, count: ${count || 'all'}`);
         
-        // Ensure database is initialized
-        const initialized = await ensureDatabaseInitialized();
-        
-        if (initialized) {
-            try {
-                let questions = await prisma.question.findMany({
-                    where: { applicationId },
-                    orderBy: { id: 'asc' }
-                });
-                
-                console.log(`📊 Found ${questions.length} questions in database for application ${applicationId}`);
-                
-                if (questions.length > 0) {
-                    // If count is specified, shuffle and limit questions for quiz
-                    if (count) {
-                        questions = questions
-                            .sort(() => 0.5 - Math.random())
-                            .slice(0, parseInt(count));
-                    }
-                    
-                    const formattedQuestions = questions.map((q, index) => ({
-                        id: index,
-                        question: q.question,
-                        options: {
-                            A: q.optionA,
-                            B: q.optionB,
-                            C: q.optionC,
-                            D: q.optionD
-                        },
-                        correct: q.correctAnswer
-                    }));
-                    
-                    console.log(`✅ Returning ${formattedQuestions.length} questions from database`);
-                    res.json(formattedQuestions);
-                    return;
+        // Always try database first
+        try {
+            await prisma.$connect();
+            console.log('✅ Database connection successful for questions');
+            
+            let questions = await prisma.question.findMany({
+                where: { applicationId },
+                orderBy: { id: 'asc' }
+            });
+            
+            console.log(`📊 Found ${questions.length} questions in database for application ${applicationId}`);
+            
+            if (questions.length > 0) {
+                // If count is specified, shuffle and limit questions for quiz
+                if (count) {
+                    questions = questions
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, parseInt(count));
                 }
-            } catch (dbError) {
-                console.log('⚠️ Database query error:', dbError.message);
+                
+                const formattedQuestions = questions.map((q, index) => ({
+                    id: index,
+                    question: q.question,
+                    options: {
+                        A: q.optionA,
+                        B: q.optionB,
+                        C: q.optionC,
+                        D: q.optionD
+                    },
+                    correct: q.correctAnswer
+                }));
+                
+                console.log(`✅ Returning ${formattedQuestions.length} questions from database`);
+                res.json(formattedQuestions);
+                return;
+            } else {
+                console.log(`⚠️ No questions found in database for application ${applicationId}`);
+                console.log(`🔄 Database may need initialization - try refreshing after a few minutes`);
             }
+            
+        } catch (dbError) {
+            console.log('⚠️ Database error:', dbError.message);
+            console.log('🔄 This might be a temporary issue during deployment');
         }
         
-        // Use fallback questions if database fails or no questions found
-        console.log(`⚠️ Using fallback questions for application ${applicationId}`);
+        // Only use fallback as last resort
+        console.log(`⚠️ Using fallback questions for application ${applicationId} - database may still be initializing`);
         const fallback = fallbackQuestions[applicationId] || fallbackQuestions[1];
         const requestedCount = count ? parseInt(count) : fallback.length;
         const selectedQuestions = fallback.slice(0, requestedCount);
         
-        console.log(`✅ Returning ${selectedQuestions.length} fallback questions for application ${applicationId}`);
+        console.log(`📋 Returning ${selectedQuestions.length} fallback questions for application ${applicationId}`);
         res.json(selectedQuestions);
         
     } catch (error) {

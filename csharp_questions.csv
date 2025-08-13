@@ -1,5 +1,5 @@
 question,optionA,optionB,optionC,optionD,correctAnswer
-What is the file extension for C# source files?.cs,.c#,.csharp,.net,A
+What is the file extension for C# source files?,.cs,.c#,.csharp,.net,A
 Which keyword is used to define a class in C#?,class,Class,struct,interface,A
 What is the correct way to declare a variable in C#?,var name = value,variable name = value,dim name = value,let name = value,A
 Which access modifier makes a member accessible only within the same class?,public,private,protected,internal,B

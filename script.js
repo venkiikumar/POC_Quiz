@@ -542,7 +542,18 @@ class JavaQuizApp {
 
             const label = document.createElement('label');
             label.htmlFor = `option${option}`;
-            label.textContent = `${option}. ${question[`option${option}`]}`;
+            
+            // Handle both formats: question.optionA or question.options.A
+            let optionText = '';
+            if (question.options && question.options[option]) {
+                optionText = question.options[option];
+            } else if (question[`option${option}`]) {
+                optionText = question[`option${option}`];
+            } else {
+                optionText = 'Option not available';
+            }
+            
+            label.textContent = `${option}. ${optionText}`;
 
             optionDiv.appendChild(input);
             optionDiv.appendChild(label);
@@ -617,7 +628,8 @@ class JavaQuizApp {
 
         // Calculate score
         this.questions.forEach((question, index) => {
-            if (this.userAnswers[index] === question.correctAnswer) {
+            const correctAnswer = question.correctAnswer || question.correct;
+            if (this.userAnswers[index] === correctAnswer) {
                 correctAnswers++;
             }
         });

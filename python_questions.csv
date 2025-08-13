@@ -1,0 +1,52 @@
+question,optionA,optionB,optionC,optionD,correctAnswer
+What is the file extension for Python files?,.py,.python,.pt,.pyt,A
+Which keyword is used to define a function in Python?,function,def,func,define,B
+What is the correct way to create a comment in Python?,// comment,/* comment */,# comment,-- comment,C
+Which data type is mutable in Python?,tuple,string,list,int,C
+What is the output of print(2 ** 3)?,6,8,9,12,B
+Which operator is used for floor division in Python?,/,//,%,**,B
+What is the correct way to create a list in Python?,list = [],list = {},list = (),list = <>,A
+Which keyword is used to check if a value is in a list?,in,is,has,contains,A
+What is the correct way to define a class in Python?,class MyClass:,class MyClass(),def MyClass:,Class MyClass:,A
+Which method is used to add an element to a list?,append(),add(),insert(),push(),A
+What is the purpose of the __init__ method?,Constructor,Destructor,Static method,Class method,A
+Which keyword is used to handle exceptions in Python?,try,catch,except,handle,C
+What is the correct way to create a dictionary in Python?,dict = [],dict = {},dict = (),dict = <>,B
+Which function is used to get the length of a list?,length(),size(),count(),len(),D
+What is the output of print(type([]))?,<class 'array'>,<class 'list'>,<class 'tuple'>,<class 'dict'>,B
+Which keyword is used to define a lambda function?,lambda,function,def,func,A
+What is the correct way to open a file in Python?,open('file.txt'),file('file.txt'),File('file.txt'),fopen('file.txt'),A
+Which method is used to remove an element from a list?,delete(),remove(),pop(),erase(),B
+What is the purpose of the self parameter?,Reference to current instance,Reference to class,Reference to parent,Reference to module,A
+Which operator is used for string formatting?,+,%,.,&,B
+What is the output of print('Hello' + 'World')?,Hello World,HelloWorld,Hello+World,Error,B
+Which keyword is used to import modules?,import,include,require,use,A
+What is the correct way to create a tuple?,tuple = [],tuple = {},tuple = (),tuple = <>,C
+Which function is used to convert string to integer?,int(),str(),float(),bool(),A
+What is the purpose of the pass keyword?,Skip current iteration,Exit from loop,Do nothing,Return value,C
+Which method is used to get all keys from a dictionary?,keys(),getKeys(),allKeys(),keyList(),A
+What is the output of print(10 // 3)?,3.33,3,4,3.0,B
+Which keyword is used to define a generator?,yield,return,generate,create,A
+What is the correct way to create a set?,set = [],set = {},set = (),set = set(),D
+Which operator is used for membership testing?,in,is,has,contains,A
+What is the purpose of the global keyword?,Access global variable,Create global variable,Modify global variable,All of the above,D
+Which method is used to sort a list?,sort(),order(),arrange(),organize(),A
+What is the output of print(bool([]))?,True,False,None,Error,B
+Which function is used to get user input?,input(),read(),get(),scan(),A
+What is the correct way to create a string?,str = 'text',str = "text",str = text,Both A and B,D
+Which keyword is used to define a conditional statement?,if,when,case,condition,A
+What is the purpose of the range() function?,Create list of numbers,Create range object,Iterate over numbers,All of the above,B
+Which method is used to join strings?,join(),concat(),merge(),combine(),A
+What is the output of print(len('Hello'))?,4,5,6,Error,B
+Which operator is used for exponentiation?,^,**,pow(),exp(),B
+What is the correct way to create a multi-line string?,'''text''',"""text""",\text\,Both A and B,D
+Which keyword is used to exit from a loop?,break,exit,quit,stop,A
+What is the purpose of the continue keyword?,Exit from loop,Skip current iteration,Return value,Do nothing,B
+Which function is used to round a number?,round(),ceil(),floor(),int(),A
+What is the output of print(3 in [1 2 3])?,True,False,1,Error,A
+Which method is used to convert list to string?,str(),join(),convert(),toString(),B
+What is the correct way to check if key exists in dictionary?,key in dict,dict.has(key),dict.exists(key),dict.contains(key),A
+Which keyword is used to define an exception?,exception,error,except,raise,D
+What is the purpose of the finally block?,Always executed,Execute on success,Execute on error,Execute conditionally,A
+Which function is used to get maximum value?,max(),maximum(),largest(),big(),A
+What is the output of print(list(range(3))),[0 1 2],[1 2 3],[0 1 2 3],[1 2],A

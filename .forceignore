@@ -1,0 +1,4 @@
+# Ensure database files are included in deployment
+!quiz_app.db
+!quiz_app_backup.db
+*.db

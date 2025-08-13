@@ -32,7 +32,7 @@ What does JVM stand for?,Java Virtual Machine,Java Variable Method,Java Virtual 
 Which of the following is correct about packages in Java?,Every class is part of some package,All classes in a file are part of the same package,If no package is specified the classes in the file go into a special unnamed package,All of the above,D
 What is true about abstract class in Java?,Abstract class can be instantiated,Abstract class can contain concrete methods,Abstract class cannot contain abstract methods,Abstract class cannot be inherited,B
 Which of these access specifiers can be used for an interface?,Public,Protected,Private,All of the above,A
-What happens when you try to compile and run the following code: public class Test { public static void main(String[] args) { System.out.println(10 + 20 + \"Hello\"); } },Compilation error,Runtime error,30Hello,1020Hello,C
+What happens when you try to compile and run the following code: public class Test { public static void main(String[] args) { System.out.println(10 + 20 + Hello); } },Compilation error,Runtime error,30Hello,1020Hello,C
 Which method of Thread class is used to Suspend a thread for a period of time?,sleep(),suspend(),wait(),stop(),A
 What is the range of byte data type in Java?,-128 to 127,-32768 to 32767,-2147483648 to 2147483647,0 to 255,A
 Which operator is used to compare two values in Java?,=,==,equals(),Both B and C,D
@@ -44,7 +44,7 @@ What is the correct way to create an object of class Test?,Test obj = new Test()
 Which of the following is used to take input from user in Java?,Scanner,BufferedReader,Console,All of the above,D
 What is the difference between == and equals() method?,== compares references equals() compares content,== compares content equals() compares references,Both are same,None of the above,A
 Which keyword is used to prevent method overriding?,static,final,abstract,private,B
-What is the output of System.out.println(5 + 3 + \"2\");?,532,82,10,Compilation error,B
+What is the output of System.out.println(5 + 3 + String2);?,532,82,10,Compilation error,B
 Which collection maintains insertion order in Java?,HashSet,TreeSet,LinkedHashSet,None of the above,C
 What is the size of long data type in Java?,32 bits,64 bits,128 bits,16 bits,B
 Which method is called when an object is created in Java?,finalize(),constructor,main(),init(),B

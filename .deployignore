@@ -5,7 +5,8 @@
 test-*.js
 diagnose.js
 fix-applications.js
-check-*.js
+check-apps.js
+check-results.js
 add-digital-app.js
 update-app-names.js
 import-questions.js
@@ -15,6 +16,11 @@ server-minimal.js
 server.js
 server_new.js
 script_new.js
+
+# Keep these files for Azure deployment
+!load-questions.js
+!check-local-db.js
+!azure-*.js
 
 # Batch files
 *.bat
