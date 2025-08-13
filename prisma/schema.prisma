@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL") // Will fallback to file:./quiz_app.db if not set
+  url      = "file:./quiz_app.db"
 }
 
 model Application {
