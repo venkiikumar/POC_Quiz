@@ -1,0 +1,52 @@
+question,optionA,optionB,optionC,optionD,correctAnswer
+What is the file extension for C# source files?.cs,.c#,.csharp,.net,A
+Which keyword is used to define a class in C#?,class,Class,struct,interface,A
+What is the correct way to declare a variable in C#?,var name = value,variable name = value,dim name = value,let name = value,A
+Which access modifier makes a member accessible only within the same class?,public,private,protected,internal,B
+What is the base class for all classes in C#?,Object,Base,System,Class,A
+Which operator is used for string concatenation in C#?,&,+,.,||,B
+What is the correct syntax for a for loop in C#?,for(int i=0; i<10; i++),for i=0 to 10,for(i in range(10)),foreach(i in 10),A
+Which keyword is used to handle exceptions in C#?,catch,except,handle,trap,A
+What is the correct way to define a method in C#?,public void MethodName() {},function MethodName() {},def MethodName():,method MethodName() {},A
+Which collection type is similar to arrays but can resize dynamically?,List,Array,Collection,Set,A
+What is the correct way to inherit from a class in C#?,class Child : Parent,class Child extends Parent,class Child inherits Parent,class Child from Parent,A
+Which keyword is used to prevent a class from being inherited?,sealed,final,abstract,static,A
+What is the purpose of the using statement in C#?,Import namespaces,Include files,Define variables,Create objects,A
+Which data type is used to store true/false values in C#?,bool,boolean,bit,flag,A
+What is the correct way to create an array in C#?,int[] arr = new int[10],int arr[10],array<int> arr(10),int arr = new array(10),A
+Which keyword is used to define a constant in C#?,const,final,readonly,static,A
+What is the difference between struct and class in C#?,struct is value type class is reference type,struct is reference type class is value type,No difference,struct cannot have methods,A
+Which loop is guaranteed to execute at least once in C#?,do-while,while,for,foreach,A
+What is the correct way to check if a string is null or empty?,string.IsNullOrEmpty(),string.isEmpty(),string == null || string == "",string.isNull(),A
+Which keyword is used to define an interface in C#?,interface,Interface,abstract,contract,A
+What is the purpose of the virtual keyword in C#?,Allow method overriding,Make method static,Make method private,Make method final,A
+Which operator is used for type casting in C#?,(),as,cast,convert,A
+What is the correct way to define a property in C#?,public int Property { get; set; },property int Property,int Property() {},public Property: int,A
+Which keyword is used to call the base class constructor?,base,super,parent,this,A
+What is the purpose of the static keyword in C#?,Belongs to class not instance,Make variable constant,Make method private,Allow inheritance,A
+Which exception is thrown when dividing by zero in C#?,DivideByZeroException,ArithmeticException,MathException,ZeroException,A
+What is the correct way to define a delegate in C#?,public delegate void MyDelegate(),delegate MyDelegate(),function MyDelegate(),public MyDelegate delegate(),A
+Which keyword is used to define a generic class?,<T>,generic,template,type,A
+What is the purpose of the override keyword in C#?,Override virtual method,Create new method,Hide base method,Make method static,A
+Which collection is best for key-value pairs in C#?,Dictionary,Hashtable,List,Array,A
+What is the correct way to throw an exception in C#?,throw new Exception(),raise Exception(),error Exception(),exception Exception(),A
+Which keyword is used to define an abstract class?,abstract,virtual,sealed,interface,A
+What is the purpose of the params keyword in C#?,Variable number of parameters,Make parameter constant,Make parameter private,Pass by reference,A
+Which operator is used for null-conditional access in C#?,?.,??,?:,?=,A
+What is the correct way to define an enum in C#?,public enum MyEnum { },enum MyEnum = {},public MyEnum enum {},enum { MyEnum },A
+Which keyword is used to exit from a loop in C#?,break,exit,return,stop,A
+What is the purpose of the yield keyword in C#?,Create iterator,Return value,Exit method,Pause execution,A
+Which access modifier makes a member accessible within the same assembly?,internal,public,private,protected,A
+What is the correct way to define a constructor in C#?,public ClassName() {},constructor ClassName() {},ClassName constructor() {},public constructor ClassName() {},A
+Which keyword is used to define a read-only field?,readonly,const,final,immutable,A
+What is the purpose of the lock keyword in C#?,Thread synchronization,Lock variable,Prevent access,Secure method,A
+Which operator is used for null coalescing in C#?,??,?:,?.,||,A
+What is the correct way to define a destructor in C#?,~ClassName() {},destructor ClassName() {},delete ClassName() {},finalize ClassName() {},A
+Which keyword is used to define a partial class?,partial,part,fragment,split,A
+What is the purpose of the ref keyword in C#?,Pass by reference,Make reference,Create reference,Reference type,A
+Which collection type maintains insertion order in C#?,List,HashSet,Dictionary,Queue,A
+What is the correct way to define an indexer in C#?,public int this[int index] { get; set; },indexer int this[int index],public indexer[int index],int indexer[int index] { get; set; },A
+Which keyword is used to define an extension method?,static,extension,extend,static this,A
+What is the purpose of the out keyword in C#?,Output parameter,Make parameter public,Optional parameter,Reference parameter,A
+Which operator has the highest precedence in C#?,(),+,-,*,A
+What is the correct way to check object type in C#?,obj is Type,obj instanceof Type,typeof(obj) == Type,obj.GetType() == Type,A

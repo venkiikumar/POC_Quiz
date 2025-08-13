@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./quiz_app.db"
+}
+
+model Application {
+  id             Int           @id @default(autoincrement())
+  name           String        @unique
+  description    String?
+  questionCount  Int           @default(25) @map("question_count")
+  maxQuestions   Int           @default(100) @map("max_questions")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  
+  questions      Question[]
+  quizResults    QuizResult[]
+  
+  @@map("applications")
+}
+
+model Question {
+  id             Int           @id @default(autoincrement())
+  applicationId  Int           @map("application_id")
+  question       String
+  optionA        String        @map("option_a")
+  optionB        String        @map("option_b")
+  optionC        String        @map("option_c")
+  optionD        String        @map("option_d")
+  correctAnswer  String        @map("correct_answer")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  
+  application    Application   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  
+  @@map("questions")
+}
+
+model QuizResult {
+  id              Int          @id @default(autoincrement())
+  applicationId   Int          @map("application_id")
+  userName        String       @map("user_name")
+  userEmail       String       @map("user_email")
+  score           Int
+  totalQuestions  Int          @map("total_questions")
+  percentage      Float
+  timeTaken       Int          @map("time_taken")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  
+  application     Application  @relation(fields: [applicationId], references: [id])
+  
+  @@map("quiz_results")
+}

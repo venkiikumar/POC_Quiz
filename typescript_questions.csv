@@ -1,0 +1,51 @@
+question,optionA,optionB,optionC,optionD,correctAnswer
+What is the file extension for TypeScript files?,.ts,.js,.tsx,.typescript,A
+Which command is used to compile TypeScript files?,tsc,typescript,ts-compile,tscompile,A
+What is the correct way to declare a variable with a specific type in TypeScript?,let name: string,let name as string,let string name,string name,A
+Which symbol is used to define optional properties in TypeScript interfaces?,?,!,*,&,A
+What is the purpose of the 'any' type in TypeScript?,Disable type checking,Enable strict typing,Define objects,Create arrays,A
+Which keyword is used to define an interface in TypeScript?,interface,Interface,struct,type,A
+What is the correct way to define a function with typed parameters?,function add(a: number b: number): number,function add(number a number b): number,function add(a b): number,add(a: number b: number) -> number,A
+Which operator is used for type assertion in TypeScript?,as,is,typeof,instanceof,A
+What is the purpose of generics in TypeScript?,Code reusability with type safety,Make code faster,Reduce file size,Enable inheritance,A
+Which keyword is used to define a class in TypeScript?,class,Class,struct,interface,A
+What is the correct way to define an array of numbers in TypeScript?,number[],Array<number>,Both A and B,int[],C
+Which access modifier makes a property accessible only within the class?,private,public,protected,readonly,A
+What is the purpose of the 'void' type in TypeScript?,Function returns nothing,Function returns anything,Variable has no value,Type is undefined,A
+Which symbol is used to define union types in TypeScript?,|,&,+,||,A
+What is the correct way to define a tuple in TypeScript?,[string number],[string; number],(string number),<string number>,A
+Which keyword is used to extend a class in TypeScript?,extends,extend,inherits,inherit,A
+What is the purpose of the 'never' type in TypeScript?,Represents unreachable code,Represents null values,Represents any values,Represents undefined,A
+Which decorator is commonly used for class metadata?,@,#,%,$,A
+What is the correct way to define an enum in TypeScript?,enum Color { Red Green Blue },enum Color = { Red Green Blue },Color enum { Red Green Blue },enum { Color Red Green Blue },A
+Which keyword is used to implement an interface?,implements,implement,extends,extend,A
+What is the purpose of the 'readonly' modifier in TypeScript?,Make property immutable,Make property private,Make property static,Make property optional,A
+Which type guard is used to check if a property exists?,in,has,exists,contains,A
+What is the correct way to define a type alias in TypeScript?,type StringOrNumber = string | number,alias StringOrNumber = string | number,define StringOrNumber = string | number,typedef StringOrNumber = string | number,A
+Which operator is used for optional chaining in TypeScript?,?.,??,?:,?=,A
+What is the purpose of ambient declarations in TypeScript?,Describe existing JavaScript libraries,Create new variables,Define functions,Import modules,A
+Which keyword is used to define abstract classes?,abstract,Abstract,virtual,interface,A
+What is the correct way to define a mapped type?,{ [K in keyof T]: U },{ K: T },{ [K]: T },{ K in T },A
+Which utility type makes all properties optional?,Partial,Optional,Nullable,Maybe,A
+What is the purpose of the 'keyof' operator in TypeScript?,Get union of object keys,Check if key exists,Create key-value pairs,Define object structure,A
+Which symbol is used for intersection types in TypeScript?,&,|,+,&&,A
+What is the correct way to define a conditional type?,T extends U ? X : Y,if T extends U then X else Y,T ? X : Y,T extends U and X or Y,A
+Which keyword is used to export from a module?,export,Export,module.exports,exports,A
+What is the purpose of the 'infer' keyword in conditional types?,Extract type from generic,Infer variable type,Check type equality,Define type constraint,A
+Which configuration file is used for TypeScript projects?,tsconfig.json,typescript.json,ts.config,tsconfig.js,A
+What is the correct way to define a string literal type?,type Status = 'active' | 'inactive',Status = 'active' | 'inactive',string Status = 'active' | 'inactive',type Status: 'active' | 'inactive',A
+Which utility type makes all properties required?,Required,Mandatory,NotOptional,AllRequired,A
+What is the purpose of type guards in TypeScript?,Runtime type checking,Compile-time checking,Type conversion,Type assertion,A
+Which keyword is used to define namespaces?,namespace,Namespace,module,Module,A
+What is the correct way to define a function overload?,Multiple function signatures,function overload,@overload decorator,overload keyword,A
+Which symbol is used for template literal types?,``,'',"",<>,A
+What is the purpose of the 'Exclude' utility type?,Remove types from union,Include types in union,Check type existence,Convert types,A
+Which keyword is used for dynamic imports?,import(),import,require,include,A
+What is the correct way to define a recursive type?,type Node = { value: number; next?: Node },recursive Node = { value: number; next?: Node },type Node: { value: number; next?: Node },Node = { value: number; next?: Node },A
+Which utility type extracts the return type of a function?,ReturnType,Return,FunctionReturn,TypeReturn,A
+What is the purpose of the 'Pick' utility type?,Select specific properties,Remove properties,Add properties,Rename properties,A
+Which operator is used for nullish coalescing in TypeScript?,??,||,&&,?:,A
+What is the correct way to define a module declaration?,declare module 'module-name',module 'module-name',define module 'module-name',import module 'module-name',A
+Which utility type makes all properties nullable?,Nullable,Optional,Partial,Maybe,A
+What is the purpose of the 'Omit' utility type?,Remove specific properties,Include specific properties,Rename properties,Add properties,A
+Which keyword is used to define global augmentation?,declare global,global,augment,extend,A

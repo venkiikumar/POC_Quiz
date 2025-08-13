@@ -1,0 +1,54 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start Development Server (Node.js)",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "dev"],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new"
+			}
+		},
+		{
+			"label": "Start Development Server (Python)",
+			"type": "shell",
+			"command": "python",
+			"args": ["-m", "http.server", "3000"],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new"
+			}
+		},
+		{
+			"label": "Install Dependencies",
+			"type": "shell",
+			"command": "npm",
+			"args": ["install"],
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Open Quiz Application",
+			"type": "shell",
+			"command": "start",
+			"args": [
+				"index.html"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

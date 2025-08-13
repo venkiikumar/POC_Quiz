@@ -1,0 +1,52 @@
+question,optionA,optionB,optionC,optionD,correctAnswer
+What is the size of int in Java?,16 bits,32 bits,64 bits,8 bits,B
+Which of the following is not a Java keyword?,static,Boolean,void,private,B
+What is the default value of boolean variable in Java?,true,false,0,null,B
+Which method is used to start a thread in Java?,init(),start(),run(),resume(),B
+What is the parent class of all classes in Java?,String,Object,Class,Parent,B
+Which of the following is used to find and fix bugs in Java programs?,JVM,JDB,JDK,JRE,B
+What is the extension of Java code files?,.js,.txt,.class,.java,D
+Which environment variable is used to set Java path?,MAVEN_Path,JavaPATH,JAVA_HOME,JAVA_PATH,C
+Which of the following is not an OOPS concept in Java?,Polymorphism,Inheritance,Compilation,Encapsulation,C
+What is not the use of 'this' keyword in Java?,Referring to the instance variable when a local variable has the same name,Passing itself to the method of the same class,Passing itself to another method,Calling another constructor in constructor chaining,B
+Which of the following is a type of polymorphism in Java?,Multiple polymorphism,Compile time polymorphism,Multilevel polymorphism,Execution time polymorphism,B
+What is the size of float and double in Java?,32 and 64,32 and 32,64 and 64,64 and 32,A
+Automatic type conversion is possible in which of the possible cases?,Byte to int,Int to long,Long to int,Short to int,B
+Arrays in Java are-,Object references,objects,Primitive data type,None of the above,B
+When an array is passed to a method what does the method receive?,The reference of the array,A copy of the array,Length of the array,Copy of first element,A
+What is the default value of an object reference defined as an instance variable?,0,null,undefined,not defined,B
+Which of the following keywords is used to define interfaces in Java?,intf,Intf,interface,Interface,C
+Which of the following is correct about constructor?,Constructor can have a return type,Constructor name must be same as class name,Constructor can be inherited,Constructor cannot be overloaded,B
+What will happen if constructor of a class is declared as private?,Object of class cannot be created in same package,Object of class can only be created within the class,Public methods of the class can be called,Class can be inherited,B
+Which of the following statements is correct about inheritance in Java?,Private members of superclass are accessible in subclass,Protected members of superclass are accessible in subclass,Public members of superclass are not accessible in subclass,Default members are not accessible in subclass from different package,D
+What is method overriding in Java?,Defining multiple methods with same name but different parameters,Defining a method in subclass with same signature as in parent class,Defining multiple constructors in a class,None of the above,B
+Which of the following statements is correct about static methods?,Static methods can be overridden,Static methods can access instance variables directly,Static methods can be called without creating object of class,Static methods can use 'this' keyword,C
+What is the purpose of finalize() method in Java?,To perform cleanup processing just before object is garbage collected,To delete an object from memory,To end the program execution,None of the above,A
+Which of the following exception is thrown when java is out of memory?,MemoryError,OutOfMemoryError,MemoryOutOfBoundsException,MemoryFullException,B
+Which of these keywords is used to define a constant variable in Java?,const,constant,final,static,C
+What is the use of super keyword in Java?,To call superclass method,To call superclass constructor,To access superclass variables,All of the above,D
+Which collection class allows you to grow or shrink its size and provides indexed access to its elements but whose methods are not synchronized?,java.util.HashSet,java.util.LinkedHashSet,java.util.List,java.util.ArrayList,D
+What is the difference between String and StringBuffer in Java?,String is mutable StringBuffer is immutable,String is immutable StringBuffer is mutable,Both are mutable,Both are immutable,B
+Which of the following is true about Java?,Java is platform independent,Java is object-oriented,Java is robust and secure,All of the above,D
+What does JVM stand for?,Java Virtual Machine,Java Variable Method,Java Virtual Memory,None of the above,A
+Which of the following is correct about packages in Java?,Every class is part of some package,All classes in a file are part of the same package,If no package is specified the classes in the file go into a special unnamed package,All of the above,D
+What is true about abstract class in Java?,Abstract class can be instantiated,Abstract class can contain concrete methods,Abstract class cannot contain abstract methods,Abstract class cannot be inherited,B
+Which of these access specifiers can be used for an interface?,Public,Protected,Private,All of the above,A
+What happens when you try to compile and run the following code: public class Test { public static void main(String[] args) { System.out.println(10 + 20 + \"Hello\"); } },Compilation error,Runtime error,30Hello,1020Hello,C
+Which method of Thread class is used to Suspend a thread for a period of time?,sleep(),suspend(),wait(),stop(),A
+What is the range of byte data type in Java?,-128 to 127,-32768 to 32767,-2147483648 to 2147483647,0 to 255,A
+Which operator is used to compare two values in Java?,=,==,equals(),Both B and C,D
+What is the purpose of break statement in Java?,To terminate a loop,To skip current iteration,To exit from a switch statement,Both A and C,D
+Which of the following is not a primitive data type in Java?,int,float,boolean,String,D
+What is the default value of char data type in Java?,\u0000,null,0,'',A
+Which loop is guaranteed to execute at least once?,for loop,while loop,do-while loop,None of the above,C
+What is the correct way to create an object of class Test?,Test obj = new Test();,Test obj = Test();,obj = new Test();,new Test() obj;,A
+Which of the following is used to take input from user in Java?,Scanner,BufferedReader,Console,All of the above,D
+What is the difference between == and equals() method?,== compares references equals() compares content,== compares content equals() compares references,Both are same,None of the above,A
+Which keyword is used to prevent method overriding?,static,final,abstract,private,B
+What is the output of System.out.println(5 + 3 + \"2\");?,532,82,10,Compilation error,B
+Which collection maintains insertion order in Java?,HashSet,TreeSet,LinkedHashSet,None of the above,C
+What is the size of long data type in Java?,32 bits,64 bits,128 bits,16 bits,B
+Which method is called when an object is created in Java?,finalize(),constructor,main(),init(),B
+What is the correct syntax for main method in Java?,public static void main(String args[]),static public void main(String[] args),public static main(String[] args),Both A and B,D
+Which exception is thrown when array index is out of bounds?,ArrayIndexOutOfBoundsException,IndexOutOfBoundsException,ArrayException,BoundsException,A

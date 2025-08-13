@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Quiz Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Programming Quiz Application</h1>
+            <p>Select an application to test your programming knowledge</p>
+            <div class="admin-toggle">
+                <button id="adminToggle" class="btn btn-secondary">Admin Login</button>
+            </div>
+        </header>
+
+        <!-- Admin Login Modal -->
+        <div id="adminModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Admin Login</h2>
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="adminUsername">Username:</label>
+                        <input type="text" id="adminUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Password:</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="section hidden">
+            <h2>Admin Panel</h2>
+            <div class="admin-controls">
+                <div class="admin-section">
+                    <h3>Application Management</h3>
+                    <div id="applicationSettings" class="application-settings">
+                        <!-- Application settings will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Question Management</h3>
+                    <div class="upload-section">
+                        <label for="uploadApplicationSelect">Select Application:</label>
+                        <select id="uploadApplicationSelect" class="application-select">
+                            <option value="">Select Application</option>
+                        </select>
+                        
+                        <label for="csvFileInput">Upload Questions:</label>
+                        <input type="file" id="csvFileInput" accept=".csv" class="file-input">
+                        <p class="help-text">Upload a CSV file with columns: question, optionA, optionB, optionC, optionD, correctAnswer</p>
+                        
+                        <div class="upload-buttons">
+                            <button id="uploadQuestionsBtn" class="btn btn-primary" disabled>Upload Questions</button>
+                            <button onclick="downloadSampleCSV()" class="btn btn-secondary">Download Sample CSV</button>
+                        </div>
+                        
+                        <div id="uploadStatus" class="upload-status hidden"></div>
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Results Management</h3>
+                    <div class="results-summary" id="resultsSummary"></div>
+                    <div class="utility-buttons">
+                        <button onclick="viewAllResults()" class="btn btn-primary">View All Results</button>
+                        <button onclick="exportAllResults()" class="btn btn-secondary">Export All Results</button>
+                        <button onclick="clearStoredResults()" class="btn btn-secondary">Clear All Results</button>
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Statistics</h3>
+                    <div id="statsDisplay" class="stats-display"></div>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+        </div>
+
+        <!-- Results Table Modal -->
+        <div id="resultsModal" class="modal hidden">
+            <div class="modal-content large">
+                <span class="close">&times;</span>
+                <h2>All Quiz Results</h2>
+                <div id="resultsTableContainer"></div>
+            </div>
+        </div>
+
+        <!-- User Details Form -->
+        <div id="userForm" class="section">
+            <h2>Enter Your Details</h2>
+            <form id="detailsForm">
+                <div class="form-group">
+                    <label for="userEmail">Email Address:</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="userName">Full Name:</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicationSelect">Select Application:</label>
+                    <select id="applicationSelect" required>
+                        <option value="">Select Application</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Start Quiz</button>
+            </form>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quizSection" class="section hidden">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <span id="questionCounter">Question 1 of 25</span>
+                    <span id="timer">Time: 00:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <h3 id="questionText">Loading question...</h3>
+                <div id="optionsContainer" class="options-container">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="quiz-controls">
+                <button id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
+                <button id="nextBtn" class="btn btn-primary">Next</button>
+                <button id="submitBtn" class="btn btn-success hidden">Submit Quiz</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="section hidden">
+            <h2>Quiz Results</h2>
+            <div class="results-container">
+                <div class="score-display">
+                    <h3 id="finalScore">Your Score: 0/25</h3>
+                    <p id="percentage">0%</p>
+                </div>
+                <div class="result-details">
+                    <p id="timeTaken">Time Taken: 00:00</p>
+                    <p id="resultMessage">Great job!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Upload Section for CSV - Only visible to admin -->
+        <div id="csvUpload" class="section hidden">
+            <h3>Upload Questions CSV File</h3>
+            <input type="file" id="userCsvFileInput" accept=".csv" class="file-input">
+            <p class="help-text">Upload a CSV file with columns: question, optionA, optionB, optionC, optionD, correctAnswer</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

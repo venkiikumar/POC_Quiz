@@ -1,0 +1,4 @@
+Name,Email,Score,Total Questions,Percentage,Time Taken (seconds),Timestamp
+Sample User,sample@email.com,20,25,80,1800,2025-07-31T10:30:00.000Z
+John Doe,john.doe@example.com,18,25,72,2100,2025-07-31T11:15:00.000Z
+Jane Smith,jane.smith@example.com,23,25,92,1650,2025-07-31T12:00:00.000Z
