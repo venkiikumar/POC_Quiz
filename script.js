@@ -468,15 +468,8 @@ class JavaQuizApp {
                 return;
             }
             
-            // Transform questions to match expected format
-            this.questions = this.questions.map(q => ({
-                question: q.question,
-                optionA: q.option_a,
-                optionB: q.option_b,
-                optionC: q.option_c,
-                optionD: q.option_d,
-                correctAnswer: q.correct_answer
-            }));
+            // Questions are already in the correct format from the server
+            // No transformation needed as server returns: { question, options: {A, B, C, D}, correct }
             
             this.userAnswers = new Array(this.questions.length).fill(null);
             this.currentQuestionIndex = 0;
@@ -628,7 +621,7 @@ class JavaQuizApp {
 
         // Calculate score
         this.questions.forEach((question, index) => {
-            const correctAnswer = question.correctAnswer || question.correct;
+            const correctAnswer = question.correct; // Server returns 'correct' field
             if (this.userAnswers[index] === correctAnswer) {
                 correctAnswers++;
             }
