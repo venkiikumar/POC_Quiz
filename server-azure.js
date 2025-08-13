@@ -61,6 +61,50 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Diagnostic endpoint to check database content
+app.get('/api/debug/database', async (req, res) => {
+    try {
+        console.log('🔍 Running database diagnostics...');
+        
+        // Check applications
+        const applications = await prisma.application.findMany();
+        console.log('📋 Applications in database:', applications);
+        
+        // Check questions for each application
+        const questionCounts = {};
+        for (const app of applications) {
+            const count = await prisma.question.count({ where: { applicationId: app.id } });
+            questionCounts[app.name] = count;
+        }
+        
+        // Get sample questions
+        const sampleQuestions = await prisma.question.findMany({
+            take: 3,
+            include: {
+                application: {
+                    select: { name: true }
+                }
+            }
+        });
+        
+        res.json({
+            applications: applications,
+            questionCounts: questionCounts,
+            sampleQuestions: sampleQuestions.map(q => ({
+                id: q.id,
+                question: q.question.substring(0, 100) + '...',
+                application: q.application?.name,
+                hasOptions: !!(q.optionA && q.optionB && q.optionC && q.optionD)
+            })),
+            timestamp: new Date().toISOString()
+        });
+        
+    } catch (error) {
+        console.error('❌ Database diagnostic error:', error);
+        res.status(500).json({ error: 'Database diagnostic failed', details: error.message });
+    }
+});
+
 // Test endpoint
 app.get('/api/test', (req, res) => {
     console.log('📡 Test endpoint accessed');
@@ -128,46 +172,54 @@ app.get('/api/questions/:applicationId', async (req, res) => {
         
         try {
             // Try to get questions from database first
+            await prisma.$connect();
+            console.log('✅ Database connection successful for questions');
+            
             let questions = await prisma.question.findMany({
                 where: { applicationId },
                 orderBy: { id: 'asc' }
             });
             
-            console.log(`📊 Found ${questions.length} questions in database`);
+            console.log(`📊 Found ${questions.length} questions in database for application ${applicationId}`);
             
-            // If count is specified, shuffle and limit questions for quiz
-            if (count) {
-                questions = questions
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, parseInt(count));
+            if (questions.length > 0) {
+                // If count is specified, shuffle and limit questions for quiz
+                if (count) {
+                    questions = questions
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, parseInt(count));
+                }
+                
+                const formattedQuestions = questions.map((q, index) => ({
+                    id: index,
+                    question: q.question,
+                    options: {
+                        A: q.optionA,
+                        B: q.optionB,
+                        C: q.optionC,
+                        D: q.optionD
+                    },
+                    correct: q.correctAnswer
+                }));
+                
+                console.log(`✅ Returning ${formattedQuestions.length} questions from database`);
+                res.json(formattedQuestions);
+                return;
+            } else {
+                console.log(`⚠️ No questions found in database for application ${applicationId}, using fallback`);
             }
-            
-            const formattedQuestions = questions.map((q, index) => ({
-                id: index,
-                question: q.question,
-                options: {
-                    A: q.optionA,
-                    B: q.optionB,
-                    C: q.optionC,
-                    D: q.optionD
-                },
-                correct: q.correctAnswer
-            }));
-            
-            console.log(`✅ Returning ${formattedQuestions.length} questions from database`);
-            res.json(formattedQuestions);
             
         } catch (dbError) {
             console.log('⚠️ Database error, using fallback questions:', dbError.message);
-            
-            // Use fallback questions
-            const fallback = fallbackQuestions[applicationId] || fallbackQuestions[1];
-            const requestedCount = count ? parseInt(count) : fallback.length;
-            const selectedQuestions = fallback.slice(0, requestedCount);
-            
-            console.log(`✅ Returning ${selectedQuestions.length} fallback questions`);
-            res.json(selectedQuestions);
         }
+        
+        // Use fallback questions if database fails or no questions found
+        const fallback = fallbackQuestions[applicationId] || fallbackQuestions[1];
+        const requestedCount = count ? parseInt(count) : fallback.length;
+        const selectedQuestions = fallback.slice(0, requestedCount);
+        
+        console.log(`✅ Returning ${selectedQuestions.length} fallback questions for application ${applicationId}`);
+        res.json(selectedQuestions);
         
     } catch (error) {
         console.error('❌ Error fetching questions:', error);
@@ -267,6 +319,35 @@ app.post('/api/applications', async (req, res) => {
             res.status(400).json({ error: 'Application name already exists' });
         } else {
             res.status(500).json({ error: 'Failed to create application', details: error.message });
+        }
+    }
+});
+
+// Update application settings (admin endpoint)
+app.put('/api/applications/:id', async (req, res) => {
+    try {
+        const applicationId = parseInt(req.params.id);
+        const { name, description, maxQuestions } = req.body;
+        
+        console.log(`📝 Updating application ${applicationId}:`, { name, description, maxQuestions });
+        
+        const application = await prisma.application.update({
+            where: { id: applicationId },
+            data: {
+                name,
+                description: description || '',
+                maxQuestions: parseInt(maxQuestions) || 25
+            }
+        });
+        
+        console.log('✅ Application updated:', application);
+        res.json({ success: true, application });
+    } catch (error) {
+        console.error('❌ Error updating application:', error);
+        if (error.code === 'P2025') {
+            res.status(404).json({ error: 'Application not found' });
+        } else {
+            res.status(500).json({ error: 'Failed to update application', details: error.message });
         }
     }
 });
