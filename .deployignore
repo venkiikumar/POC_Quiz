@@ -1,0 +1,37 @@
+# Azure Deployment Ignore File
+# This file tells Azure what NOT to deploy
+
+# Development files
+test-*.js
+diagnose.js
+fix-applications.js
+check-*.js
+add-digital-app.js
+update-app-names.js
+import-questions.js
+server-backup.js
+server-simple.js
+server-minimal.js
+server.js
+server_new.js
+script_new.js
+
+# Batch files
+*.bat
+
+# Documentation
+README_NEW.md
+IMPLEMENTATION_SUMMARY.md
+AZURE_DEPLOYMENT_GUIDE.md
+
+# Development databases
+dev.db
+prisma/dev.db
+
+# IDE and temp files
+.vscode/
+*.log
+*.tmp
+
+# Environment files (will be set in Azure)
+.env.azure

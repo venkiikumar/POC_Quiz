@@ -3,3 +3,34 @@ node_modules
 .env
 
 /generated/prisma
+
+# Development and testing files
+test-*.js
+server-backup.js
+server-simple.js
+server-minimal.js
+server.js
+server_new.js
+script_new.js
+diagnose.js
+fix-applications.js
+check-*.js
+add-digital-app.js
+update-app-names.js
+import-questions.js
+
+# Batch files
+*.bat
+
+# Development databases
+dev.db
+prisma/dev.db
+
+# Documentation
+README_NEW.md
+IMPLEMENTATION_SUMMARY.md
+AZURE_DEPLOYMENT_GUIDE.md
+
+# IDE files
+.vscode/
+*.log
