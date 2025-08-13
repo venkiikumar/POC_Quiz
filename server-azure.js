@@ -508,12 +508,27 @@ const server = app.listen(PORT, async () => {
     console.log('✅ Server is ready! Initializing database...');
     console.log('==========================================');
     
-    // Initialize database after server starts (non-blocking)
-    ensureDatabaseInitialized().then(() => {
-        console.log('🎉 Database initialization completed in background');
-    }).catch(error => {
-        console.log('⚠️ Database initialization failed, will retry on first request');
-    });
+    // Initialize database after server starts (more aggressive for Azure)
+    console.log('🔧 Running Azure database initialization...');
+    try {
+        const { initializeAzureDatabase } = require('./azure-db-init');
+        initializeAzureDatabase().then((success) => {
+            if (success) {
+                console.log('🎉 Azure database initialization completed successfully');
+            } else {
+                console.log('⚠️ Azure database initialization failed, using fallback');
+            }
+        }).catch(error => {
+            console.log('⚠️ Azure database initialization error:', error.message);
+        });
+    } catch (error) {
+        console.log('⚠️ Could not load azure-db-init, using standard initialization');
+        ensureDatabaseInitialized().then(() => {
+            console.log('🎉 Standard database initialization completed');
+        }).catch(error => {
+            console.log('⚠️ Database initialization failed, will retry on first request');
+        });
+    }
 });
 
 // Graceful shutdown

@@ -21,6 +21,8 @@ script_new.js
 !load-questions.js
 !check-local-db.js
 !azure-*.js
+!*.csv
+!prisma/quiz_app.db
 
 # Batch files
 *.bat
@@ -30,9 +32,10 @@ README_NEW.md
 IMPLEMENTATION_SUMMARY.md
 AZURE_DEPLOYMENT_GUIDE.md
 
-# Development databases
+# Development databases (but keep the main one)
 dev.db
 prisma/dev.db
+!prisma/quiz_app.db
 
 # IDE and temp files
 .vscode/
