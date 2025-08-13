@@ -2,9 +2,9 @@
   "name": "java-quiz-application",
   "version": "1.0.0",
   "description": "A web-based Java quiz application with admin panel for managing questions and viewing results",
-  "main": "server.js",
+  "main": "server-azure.js",
   "scripts": {
-    "start": "node server-backup.js",
+    "start": "node server-azure.js",
     "dev": "nodemon server-backup.js",
     "client": "npx http-server . -p 3000 -o",
     "serve": "python -m http.server 3000",

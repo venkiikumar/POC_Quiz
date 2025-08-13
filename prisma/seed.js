@@ -26,7 +26,7 @@ async function seedApplications() {
             description: 'UES application quiz covering unified enterprise systems',
             questionCount: 25, 
             maxQuestions: 100 
-        }
+        },
         {
             name: 'Digital',
             description: 'Digital application quiz covering digital transformation and technologies',

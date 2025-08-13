@@ -12,7 +12,13 @@ class JavaQuizApp {
         this.isAdmin = false;
         this.selectedApplication = null;
         this.currentQuestionCount = 25; // Default question count
-        this.baseURL = 'http://localhost:3000/api'; // Use port 3000 consistently
+        
+        // Determine the base URL based on environment
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            this.baseURL = 'http://localhost:3000/api'; // Local development
+        } else {
+            this.baseURL = `${window.location.origin}/api`; // Production (Azure)
+        }
         
         // Admin credentials (in production, this should be handled by backend)
         this.adminCredentials = {
@@ -714,7 +720,11 @@ class JavaQuizApp {
         // Show a more prominent error message
         const header = document.querySelector('header p');
         if (header) {
-            header.innerHTML = '⚠️ <strong>Database server is not running!</strong><br>Please run start-backup-server.bat or: <code>node server-backup.js</code>';
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                header.innerHTML = '⚠️ <strong>Database server is not running!</strong><br>Please run start-backup-server.bat or: <code>node server-backup.js</code>';
+            } else {
+                header.innerHTML = '⚠️ <strong>Application is starting up...</strong><br>Please wait a moment and refresh the page.';
+            }
             header.style.color = 'red';
             header.style.backgroundColor = '#ffebee';
             header.style.padding = '10px';
